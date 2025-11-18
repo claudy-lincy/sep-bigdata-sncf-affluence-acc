@@ -134,12 +134,20 @@ Le pipeline suit une architecture en **3 couches** (Medallion Architecture) :
 
 ```bash
 # Cloner le repository
-git clone <repository-url>
+git clone https://github.com/ettouilebouael/m2-univ-reims-sep-cs-etl-sncf-gcp
 cd m2-univ-reims-sep-cs-etl-sncf-gcp
+
+# Créer un environnement virtuel
+python -m venv venv
+
+# Activer l'environnement virtuel
+# Sur macOS/Linux :
+source venv/bin/activate
+# Sur Windows :
+# venv\Scripts\activate
 
 # Installer les dépendances
 pip install -r requirements.txt
-
 ```
 
 ### Configuration
@@ -174,10 +182,10 @@ BUCKET_NAME=your-gcs-bucket-name
 - **Pandas** : Manipulation de données (inspection locale uniquement)
 
 
-## 📝 Licence
+## Licence
 
 Ce projet est destiné à un usage pédagogique dans le cadre du Master 2 de l'Université de Reims.
 
-## 👥 Auteurs
+## Auteurs
 
 Projet réalisé dans le cadre du Master 2 - Université de Reims Champagne-Ardenne.
