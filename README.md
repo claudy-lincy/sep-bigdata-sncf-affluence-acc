@@ -24,8 +24,8 @@ m2-univ-reims-sep-cs-etl-sncf-gcp/
 Le pipeline suit une architecture en **3 couches** (Medallion Architecture) :
 
 1. **Bronze** (GCS) : Données brutes, non transformées
-2. **Silver** (BigQuery) : Données nettoyées et structurées selon un schéma en étoile
-3. **Gold** (BigQuery) : Données agrégées et optimisées pour l'analyse métier
+2. **Silver** (BigQuery) : Données brutes chargées sur BigQuery
+3. **Gold** (BigQuery) : Données Nettoyées et agrégées et optimisées pour l'analyse métier
 
 ## Tables de Données
 
@@ -76,7 +76,7 @@ Le pipeline suit une architecture en **3 couches** (Medallion Architecture) :
 
 ### Tables de Fait
 
-#### `fact_validations_*`
+#### `fact_validations`
 - **Description** : Données historiques de validations des titres de transport sur le réseau ferré d'Île-de-France
 - **Source** : Île-de-France Mobilités
 - **Documentation** : [Validations historiques réseau ferré](https://data.iledefrance-mobilites.fr/explore/dataset/histo-validations-reseau-ferre/information/)
