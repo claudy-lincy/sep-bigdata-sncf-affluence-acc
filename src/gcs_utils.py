@@ -7,11 +7,9 @@ Ce module fournit des fonctions pour :
 - Uploader récursivement des dossiers vers GCS
 """
 
-# Standard library imports
 from pathlib import Path
 from typing import List, Optional
 
-# Third-party imports
 import requests
 from google.cloud import storage
 
