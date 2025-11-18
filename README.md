@@ -25,9 +25,9 @@ Le pipeline suit une architecture en **3 couches** (Medallion Architecture) :
 
 1. **Bronze** (GCS) : Données brutes, non transformées
 2. **Silver** (BigQuery) : Données brutes chargées sur BigQuery
-3. **Gold** (BigQuery) : Données Nettoyées et agrégées et optimisées pour l'analyse métier
+3. **Gold** (BigQuery) : Données Nettoyées, agrégées et optimisées pour l'analyse métier
 
-## 🔗 Liens vers les Sources de Données
+## Liens vers les Sources de Données
 
 ### Île-de-France Mobilités
 - **Portail Open Data** : https://data.iledefrance-mobilites.fr/
