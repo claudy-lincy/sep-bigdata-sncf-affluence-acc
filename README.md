@@ -1,6 +1,7 @@
 # Pipeline ETL Big Data - SNCF GCP
 
-Pipeline ETL pour l'analyse des données de transport en commun d'Île-de-France sur Google Cloud Platform.
+Projet de M2 SEP – Forecast de l’affluence des gares SNCF  
+Auteurs : Claudy LINCY
 
 ## Structure du Projet
 
