@@ -3,6 +3,8 @@
 Projet de M2 SEP – Forecast de l’affluence des gares SNCF  
 Auteurs : Claudy LINCY
 
+(Repo inspiré du template fourni par l’enseignant.)
+
 ## Structure du Projet
 
 ```
