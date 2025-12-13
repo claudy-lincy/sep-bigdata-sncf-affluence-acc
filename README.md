@@ -1,9 +1,21 @@
-# Pipeline ETL Big Data - SNCF GCP
+# SEP – Big Data SNCF (ETL + BigQuery) – Silver / Gold
 
 Projet de M2 SEP – Forecast de l’affluence des gares SNCF  
-Auteurs : Claudy LINCY
+Auteurs : Adama, Claudy et Charifatou(acc)
 
 (Repo inspiré du template fourni par le prof.)
+
+
+---
+
+## Objectif du projet
+
+L’objectif de ce projet est de construire un pipeline Big Data permettant :
+- l’ingestion de données publiques liées au réseau SNCF / Île-de-France Mobilités,
+- leur structuration dans BigQuery selon une architecture Bronze / Silver / Gold,
+- l’analyse de l’affluence ferroviaire via des indicateurs métier (KPIs),
+- et la préparation des données pour des usages analytiques et de prévision.
+
 
 ## Structure du Projet
 
@@ -60,19 +72,28 @@ Le pipeline suit une architecture en **3 couches** (Medallion Architecture) :
 
 ## Démarrage Rapide
 
-### Prérequis
+## 1) Prérequis
 
-1. **Compte Google Cloud Platform** avec un projet créé
-2. **Service Account** avec les permissions nécessaires
-3. **Bucket GCS** créé
-4. **Python 3.11+** avec les packages installés
+### Outils locaux
+- Python 3.10+ (recommandé)
+- Git
+- VS Code (ou équivalent)
+- Jupyter (via `pip` ou VS Code)
 
-### Installation
+### Google Cloud
+- Un projet GCP actif (ex: `idfm-etl-reims-0224dy2025dy`)
+- BigQuery activé
+- Un compte de service (Service Account) avec droits BigQuery + Storage
+- Une clé JSON du service account (⚠️ à ne jamais committer)
+
+---
+
+## 2) Cloner le projet
 
 ```bash
-# Cloner le repository
-git clone https://github.com/ettouilebouael/m2-univ-reims-sep-cs-etl-sncf-gcp
-cd m2-univ-reims-sep-cs-etl-sncf-gcp
+git clone https://github.com/claudy-lincy/sep-bigdata-sncf-affluence-acc.git
+cd sep-bigdata-sncf-affluence-acc
+
 
 # Créer un environnement virtuel
 python -m venv venv
@@ -87,15 +108,20 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Configuration
+### Configuration GCP (liaison “local ↔ cloud”)
 
 Créer un fichier `.env` à la racine du projet :
 
 ```env
-PROJECT_ID=your-gcp-project-id
+PROJECT_ID=idfm-etl-reims-0224dy2025dy
 GOOGLE_APPLICATION_CREDENTIALS=secrets/your-service-account.json
 BUCKET_NAME=your-gcs-bucket-name
 ```
+# Clé JSON du service account
+
+Placer la clé dans :
+secrets/<service-account>.json
+ Vérifier que secrets/ est bien dans .gitignore (obligatoire).
 
 ### Exécution des Notebooks
 
@@ -111,12 +137,34 @@ BUCKET_NAME=your-gcs-bucket-name
 - **`2_[LOAD]_load_to_bigquery.ipynb`** : Chargement des données depuis GCS vers BigQuery avec schéma en étoile
 - **`3_[TRANSFORM]_analyze_for_gold.ipynb`** : Analyse des données pour identifier les transformations nécessaires à la couche gold
 
+
+
 ## Technologies Utilisées
 - **Google Cloud Python SDK** : Interaction avec les services GCP
 - **Google Cloud Storage (GCS)** : Stockage des données brutes
 - **BigQuery** : Data warehouse pour l'analyse
 - **Python**
 - **Pandas**
+
+### Organisation des couches de données
+
+Silver : tables nettoyées/structurées (dimensions + facts)
+Gold : tables orientées métier (KPIs, agrégats, vues finales)
+
+## Important : “Gold dans Silver” (contexte BigQuery)
+
+Dans ce projet, les tables KPI (Gold) peuvent être créées dans le dataset 
+silver car BigQuery impose une contrainte stricte de localisation :
+
+Un dataset silver créé automatiquement par notebook peut être en 
+multi-région US
+
+L’interface GCP peut ne proposer que des régions (ex: us-east1) pour créer un dataset “gold”
+
+On ne peut pas requêter entre US (multi-région) et us-east1 (erreur de localisation)
+
+# Solution adoptée : matérialisation des tables KPI (Gold) dans le dataset silver pour garantir l’exécution des requêtes.
+
 
 
 ## Licence
